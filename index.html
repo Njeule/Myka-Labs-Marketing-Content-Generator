@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Myka Labs – Marketing Content Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-family: Arial, sans-serif;
+      color: #0A1F44;
+      background-color: #f7f9fc;
+    }
+    body {
+      margin: 0;
+      padding: 24px;
+      background-color: #f7f9fc;
+    }
+    .app {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .shell {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(10, 31, 68, 0.06);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+    }
+
+    .shell-header {
+      background-color: #0A1F44;
+      color: #ffffff;
+      padding: 20px 24px;
+    }
+    .shell-eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #C9A74A;
+      font-weight: 600;
+    }
+    .shell-title {
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 600;
+      margin-top: 4px;
+      color: #ffffff;
+    }
+    .shell-subtitle {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-top: 8px;
+      color: #d7dbea;
+    }
+
+    .shell-body {
+      padding: 20px 24px 24px 24px;
+      background-color: #ffffff;
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      line-height: 1.4;
+      color: #0A1F44;
+    }
+    .helper-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #475569;
+      margin: 0 0 12px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.3fr;
+      gap: 18px;
+      margin-top: 12px;
+    }
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: #f9fafb;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      padding: 16px 18px 18px 18px;
+    }
+
+    h2 {
+      margin: 0 0 10px 0;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      color: #0A1F44;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #0A1F44;
+    }
+    .field small {
+      display: block;
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
+      background-color: #f9fafb;
+      color: #0A1F44;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #33C0C0;
+      box-shadow: 0 0 0 1px rgba(51, 192, 192, 0.28);
+      background-color: #ffffff;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 11px;
+      background-color: #f9fafb;
+      border: 1px solid #e2e8f0;
+      font-size: 12px;
+      color: #0A1F44;
+    }
+    .chip input {
+      margin: 0;
+    }
+
+    .button-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #33C0C0, #0A1F44);
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(10, 31, 68, 0.25);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.15s ease;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(10, 31, 68, 0.35);
+    }
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 12px rgba(10, 31, 68, 0.3);
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: #0A1F44;
+      border: 1px solid #e2e8f0;
+      box-shadow: none;
+      padding: 6px 14px;
+      font-size: 12px;
+    }
+    .btn-secondary:hover {
+      background: #f1f5f9;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .status-line {
+      font-size: 12px;
+      color: #64748b;
+    }
+    .status-line strong {
+      color: #0A1F44;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    pre {
+      background-color: #020617;
+      color: #e5e7eb;
+      font-size: 11px;
+      padding: 10px;
+      border-radius: 8px;
+      overflow: auto;
+      max-height: 420px;
+      margin: 0;
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background-color: #e5e7eb;
+      color: #374151;
+      display: inline-block;
+    }
+
+    .response-meta {
+      font-size: 12px;
+      color: #4b5563;
+      margin-bottom: 4px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 4px 0 8px 0;
+    }
+    .pill {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background-color: #f3f4f6;
+      color: #374151;
+    }
+
+    .shell-footer {
+      padding: 14px 24px 18px 24px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #475569;
+      background-color: #f9fafb;
+      border-top: 1px solid #e2e8f0;
+    }
+    .shell-footer strong {
+      color: #0A1F44;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .preset-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    /* Marketing package view */
+    .package-box {
+      background-color: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #0A1F44;
+    }
+    .package-box h3 {
+      margin: 6px 0 4px 0;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+    }
+    .package-box p {
+      margin: 4px 0 6px 0;
+    }
+    .summary-divider {
+      border-top: 1px solid #e2e8f0;
+      margin: 8px 0;
+    }
+    .summary-muted {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid #e2e8f0;
+      background-color: #f9fafb;
+      color: #475569;
+    }
+    .status-ready {
+      background-color: #dcfce7;
+      border-color: #bbf7d0;
+      color: #14532d;
+    }
+    .status-pending {
+      background-color: #fef9c3;
+      border-color: #fef3c7;
+      color: #92400e;
+    }
+    .status-error {
+      background-color: #fee2e2;
+      border-color: #fecaca;
+      color: #b91c1c;
+    }
+
+    .tech-details {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .tech-details summary {
+      cursor: pointer;
+      color: #475569;
+    }
+    .tech-details summary:hover {
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="shell">
+      <!-- Header / Brand bar -->
+      <div class="shell-header">
+        <div class="shell-eyebrow">
+          MYKA LABS · AI MARKETING TOOLKIT
+        </div>
+        <div class="shell-title">
+          Multi-Channel Marketing Content Generator
+        </div>
+        <div class="shell-subtitle">
+          Enter your campaign details once and instantly generate email, social, and blog content with A/B test ideas.
+        </div>
+      </div>
+
+      <!-- Main body -->
+      <div class="shell-body">
+        <h1>Campaign Configuration</h1>
+        <p class="helper-text">
+          Use one of the demo presets or customise the fields below to generate a complete marketing package
+          (email, social, blog, and A/B tests) for your campaign.
+        </p>
+
+        <div class="grid">
+          <!-- LEFT: FORM -->
+          <div class="card">
+            <h2>Campaign Details</h2>
+
+            <!-- Preset examples -->
+            <div class="field">
+              <div class="preset-label">Load demo campaign</div>
+              <div class="preset-row">
+                <button type="button" class="btn-secondary" data-example="saas">
+                  SaaS Product Launch
+                </button>
+                <button type="button" class="btn-secondary" data-example="ecommerce">
+                  E-commerce Holiday Sale
+                </button>
+                <button type="button" class="btn-secondary" data-example="course">
+                  Educational Course Launch
+                </button>
+              </div>
+              <small>Click a preset to auto-fill the form for quick demos.</small>
+            </div>
+
+            <form id="campaignForm">
+              <div class="field">
+                <label for="campaign_name">Campaign Name</label>
+                <input
+                  type="text"
+                  id="campaign_name"
+                  placeholder="AI Writing Assistant Launch 2025"
+                />
+              </div>
+
+              <div class="field">
+                <label for="product_service">Product / Service<span style="color:#b91c1c;"> *</span></label>
+                <input
+                  type="text"
+                  id="product_service"
+                  placeholder="AI-powered writing assistant"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="target_audience">Target Audience<span style="color:#b91c1c;"> *</span></label>
+                <input
+                  type="text"
+                  id="target_audience"
+                  placeholder="Content creators aged 25–45"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="brand_voice">Brand Voice</label>
+                <input
+                  type="text"
+                  id="brand_voice"
+                  placeholder="Innovative, helpful, and empowering"
+                />
+                <small>Leave blank to use the default: “Professional and Friendly”.</small>
+              </div>
+
+              <div class="field">
+                <label>Channels</label>
+                <div class="chips">
+                  <label class="chip">
+                    <input type="checkbox" name="channels" value="email" checked />
+                    <span>Email</span>
+                  </label>
+                  <label class="chip">
+                    <input type="checkbox" name="channels" value="social" checked />
+                    <span>Social</span>
+                  </label>
+                  <label class="chip">
+                    <input type="checkbox" name="channels" value="blog" checked />
+                    <span>Blog</span>
+                  </label>
+                </div>
+                <small>Select one or more content channels to generate.</small>
+              </div>
+
+              <div class="field">
+                <label for="key_messages">Key Messages<span style="color:#b91c1c;"> *</span></label>
+                <textarea
+                  id="key_messages"
+                  placeholder="Save time writing, Improve quality, Beat writer's block, 10x productivity"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="field">
+                <label for="call_to_action">Call To Action</label>
+                <input
+                  type="text"
+                  id="call_to_action"
+                  placeholder="Start Free Trial Today"
+                />
+                <small>Leave blank to use the default “Learn More”.</small>
+              </div>
+
+              <div class="button-row">
+                <button type="submit" id="submitBtn">
+                  <span>⚡ Generate Marketing Package</span>
+                </button>
+                <span class="status-line" id="statusLine">
+                  Ready to generate marketing content.
+                </span>
+              </div>
+            </form>
+          </div>
+
+          <!-- RIGHT: MARKETING PACKAGE VIEW -->
+          <div class="card">
+            <h2>Generated Marketing Package</h2>
+
+            <div class="field">
+              <div class="response-meta">
+                Status:
+                <span id="statusBadge" class="status-badge status-pending">No content generated yet</span>
+              </div>
+              <div class="pill-row" id="responseHighlights" style="display:none;">
+                <span class="pill" id="pillCampaignId"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="section-label">Campaign overview</div>
+              <div id="overviewBox" class="package-box">
+                No marketing package generated yet. Fill in the form and click “Generate”.
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="section-label">Email</div>
+              <div id="emailBox" class="package-box">
+                Email content will appear here.
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="section-label">Social</div>
+              <div id="socialBox" class="package-box">
+                Social posts will appear here.
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="section-label">Blog</div>
+              <div id="blogBox" class="package-box">
+                Blog article will appear here.
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="section-label">A/B tests</div>
+              <div id="abtestsBox" class="package-box">
+                A/B test ideas will appear here.
+              </div>
+            </div>
+
+            <!-- Optional JSON for debugging -->
+            <details class="tech-details">
+              <summary>Technical details (JSON)</summary>
+              <div class="field" style="margin-top:6px;">
+                <div class="section-label">Request payload</div>
+                <pre id="requestPreview">{}</pre>
+              </div>
+              <div class="field" style="margin-top:6px;">
+                <div class="section-label">Raw response</div>
+                <pre id="responseBox">// Response from content engine will appear here</pre>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="shell-footer">
+        <p style="margin:0 0 8px 0;">
+          This interface turns your campaign brief into a complete set of ready-to-use marketing assets in seconds.
+        </p>
+        <p style="margin:0;">
+          Built with 💡 by <strong>Myka Labs</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 🔐 Configure your webhook URL here (hidden from normal users)
+    const WEBHOOK_URL = "https://micahnjeule.app.n8n.cloud/webhook/generate-content";
+
+    // Preset examples
+    const EXAMPLES = {
+      saas: {
+        campaign_name: "AI Writing Assistant Launch 2025",
+        product_service: "AI-powered writing tool for content creators",
+        target_audience: "Bloggers, marketers, and content creators aged 25-45",
+        brand_voice: "Innovative, helpful, and empowering",
+        channels: ["email", "social", "blog"],
+        key_messages: "Save time writing, Improve quality, Beat writer's block, 10x productivity",
+        call_to_action: "Start Free Trial Today"
+      },
+      ecommerce: {
+        campaign_name: "Valentine's Day Jewelry Sale",
+        product_service: "Handcrafted silver jewelry collection",
+        target_audience: "Men and women aged 25-50 shopping for partners",
+        brand_voice: "Romantic, elegant, and timeless",
+        channels: ["email", "social"],
+        key_messages: "Show your love, Handcrafted quality, Limited edition, Free gift wrapping",
+        call_to_action: "Shop Now - 40% Off"
+      },
+      course: {
+        campaign_name: "Python Programming Bootcamp",
+        product_service: "12-week intensive Python coding bootcamp",
+        target_audience: "Career changers and beginners aged 22-35 wanting tech jobs",
+        brand_voice: "Supportive, practical, and results-driven",
+        channels: ["email", "social", "blog"],
+        key_messages: "Learn by doing, Job-ready in 12 weeks, Expert instructors, Career support included",
+        call_to_action: "Enroll Now - Early Bird 25% Off"
+      }
+    };
+
+    const form = document.getElementById("campaignForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const statusLine = document.getElementById("statusLine");
+    const requestPreview = document.getElementById("requestPreview");
+    const responseBox = document.getElementById("responseBox");
+
+    const statusBadge = document.getElementById("statusBadge");
+    const responseHighlights = document.getElementById("responseHighlights");
+    const pillCampaignId = document.getElementById("pillCampaignId");
+
+    const overviewBox = document.getElementById("overviewBox");
+    const emailBox = document.getElementById("emailBox");
+    const socialBox = document.getElementById("socialBox");
+    const blogBox = document.getElementById("blogBox");
+    const abtestsBox = document.getElementById("abtestsBox");
+
+    const campaignNameInput = document.getElementById("campaign_name");
+    const productServiceInput = document.getElementById("product_service");
+    const targetAudienceInput = document.getElementById("target_audience");
+    const brandVoiceInput = document.getElementById("brand_voice");
+    const keyMessagesInput = document.getElementById("key_messages");
+    const ctaInput = document.getElementById("call_to_action");
+
+    const channelCheckboxes = document.querySelectorAll('input[name="channels"]');
+    const presetButtons = document.querySelectorAll('[data-example]');
+
+    // Strip ```json fences and parse nested JSON safely
+    function safeParseNested(jsonString) {
+      if (!jsonString || typeof jsonString !== "string") return null;
+      let cleaned = jsonString.trim();
+
+      if (cleaned.startsWith("```")) {
+        cleaned = cleaned
+          .replace(/^```[a-zA-Z]*\n?/, "")
+          .replace(/```$/, "")
+          .trim();
+      }
+
+      try {
+        return JSON.parse(cleaned);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function formatParagraphs(text) {
+      return text
+        .split(/\n\n+/)
+        .map(block => block.replace(/\n/g, "<br/>"))
+        .map(block => `<p>${block}</p>`)
+        .join("");
+    }
+
+    function setStatusBadge(rawStatus) {
+      let label = "Generating marketing content…";
+      statusBadge.className = "status-badge status-pending";
+
+      if (!rawStatus || rawStatus === "pending") {
+        label = "Generating marketing content…";
+        statusBadge.className = "status-badge status-pending";
+      } else if (rawStatus === "ready_for_review" || rawStatus === "success") {
+        label = "Marketing content generated successfully";
+        statusBadge.className = "status-badge status-ready";
+      } else if (rawStatus === "error") {
+        label = "Something went wrong";
+        statusBadge.className = "status-badge status-error";
+      } else {
+        const nice = rawStatus.replace(/_/g, " ");
+        label = nice.charAt(0).toUpperCase() + nice.slice(1);
+        statusBadge.className = "status-badge status-pending";
+      }
+
+      statusBadge.textContent = label;
+    }
+
+    function renderPackage(rootJson) {
+      const data = rootJson.data || rootJson.marketing_package || rootJson;
+      if (!data) {
+        overviewBox.textContent = "Response received, but no marketing package was found.";
+        emailBox.textContent = "";
+        socialBox.textContent = "";
+        blogBox.textContent = "";
+        abtestsBox.textContent = "";
+        setStatusBadge("error");
+        return;
+      }
+
+      const metadata = data.metadata || {};
+      const contentObj = safeParseNested(data.content);
+      const abTestsObj = safeParseNested(data.ab_tests);
+
+      setStatusBadge(data.status || rootJson.status);
+
+      const channels = Array.isArray(metadata.channels)
+        ? metadata.channels.join(" • ")
+        : "—";
+      const createdAt = data.created_at || metadata.generated_at || rootJson.created_at || "";
+
+      overviewBox.innerHTML = `
+        <div><strong>Campaign:</strong> ${metadata.campaign_name || "—"}</div>
+        <div><strong>Product / Service:</strong> ${metadata.product_service || "—"}</div>
+        <div><strong>Target audience:</strong> ${metadata.target_audience || "—"}</div>
+        <div><strong>Channels:</strong> ${channels}</div>
+        ${createdAt ? `<div><strong>Created at:</strong> ${createdAt}</div>` : ""}
+      `;
+
+      // Email
+      if (contentObj && contentObj.email) {
+        const e = contentObj.email;
+        emailBox.innerHTML = `
+          <div><strong>Subject:</strong> ${e.subject || "—"}</div>
+          <div><strong>Preview:</strong> ${e.preview_text || "—"}</div>
+          ${e.body ? `<div style="margin-top:6px;"><strong>Body:</strong>${formatParagraphs(e.body)}</div>` : ""}
+          ${
+            Array.isArray(e.personalization_tags) && e.personalization_tags.length
+              ? `<div style="margin-top:6px;"><strong>Personalisation tags:</strong> ${e.personalization_tags
+                  .map(t => `<span class="pill">${t}</span>`)
+                  .join(" ")}</div>`
+              : ""
+          }
+        `;
+      } else {
+        emailBox.textContent = "No email content returned.";
+      }
+
+      // Social
+      if (contentObj && contentObj.social) {
+        const s = contentObj.social;
+        socialBox.innerHTML = `
+          <p><strong>LinkedIn:</strong><br/><span class="summary-muted">${s.linkedin || "—"}</span></p>
+          <p><strong>Twitter/X:</strong><br/><span class="summary-muted">${s.twitter || "—"}</span></p>
+          <p><strong>Instagram:</strong><br/><span class="summary-muted">${s.instagram || "—"}</span></p>
+          ${
+            Array.isArray(s.hashtags) && s.hashtags.length
+              ? `<div class="summary-divider"></div>
+                 <div><strong>Hashtags:</strong> ${s.hashtags
+                   .map(h => `<span class="pill">${h}</span>`)
+                   .join(" ")}</div>`
+              : ""
+          }
+        `;
+      } else {
+        socialBox.textContent = "No social content returned.";
+      }
+
+      // Blog
+      if (contentObj && contentObj.blog) {
+        const b = contentObj.blog;
+        let bodyHtml = b.content || "";
+        bodyHtml = bodyHtml.replace(/^### (.*)$/gm, "<strong>$1</strong>");
+        bodyHtml = formatParagraphs(bodyHtml);
+
+        blogBox.innerHTML = `
+          <div><strong>Title:</strong> ${b.title || "—"}</div>
+          ${b.meta_description ? `<p class="summary-muted">${b.meta_description}</p>` : ""}
+          <div class="summary-divider"></div>
+          <div>${bodyHtml}</div>
+          ${
+            Array.isArray(b.keywords) && b.keywords.length
+              ? `<div class="summary-divider"></div>
+                 <div><strong>Keywords:</strong> ${b.keywords
+                   .map(k => `<span class="pill">${k}</span>`)
+                   .join(" ")}</div>`
+              : ""
+          }
+        `;
+      } else {
+        blogBox.textContent = "No blog content returned.";
+      }
+
+      // A/B tests
+      if (abTestsObj) {
+        let html = "";
+
+        if (abTestsObj.email_subjects) {
+          const es = abTestsObj.email_subjects;
+          html += `<h3>Email subjects</h3><ul>`;
+          ["variation_a", "variation_b"].forEach(key => {
+            const v = es[key];
+            if (v) {
+              html += `<li><strong>${v.text}</strong><br/><span class="summary-muted">${v.hypothesis || ""}</span></li>`;
+            }
+          });
+          html += `</ul>`;
+        }
+
+        if (abTestsObj.social_headlines) {
+          const sh = abTestsObj.social_headlines;
+          html += `<div class="summary-divider"></div><h3>Social headlines</h3><ul>`;
+          ["variation_a", "variation_b"].forEach(key => {
+            const v = sh[key];
+            if (v) {
+              html += `<li><strong>${v.text}</strong><br/><span class="summary-muted">${v.hypothesis || ""}</span></li>`;
+            }
+          });
+          html += `</ul>`;
+        }
+
+        if (abTestsObj.cta_buttons) {
+          const cb = abTestsObj.cta_buttons;
+          html += `<div class="summary-divider"></div><h3>CTA buttons</h3><ul>`;
+          ["variation_a", "variation_b"].forEach(key => {
+            const v = cb[key];
+            if (v) {
+              html += `<li><strong>${v.text}</strong><br/><span class="summary-muted">${v.hypothesis || ""}</span></li>`;
+            }
+          });
+          html += `</ul>`;
+        }
+
+        if (!html) {
+          abtestsBox.textContent = "No A/B test content returned.";
+        } else {
+          abtestsBox.innerHTML = html;
+        }
+      } else {
+        abtestsBox.textContent = "No A/B test content returned.";
+      }
+    }
+
+    function buildPayload() {
+      const campaign_name = campaignNameInput.value.trim();
+      const product_service = productServiceInput.value.trim();
+      const target_audience = targetAudienceInput.value.trim();
+      const brand_voice = brandVoiceInput.value.trim();
+      const key_messages = keyMessagesInput.value.trim();
+      const call_to_action = ctaInput.value.trim();
+
+      const channels = Array.from(
+        document.querySelectorAll('input[name="channels"]:checked')
+      ).map((el) => el.value);
+
+      return {
+        campaign_name: campaign_name || undefined,
+        product_service,
+        target_audience,
+        brand_voice: brand_voice || undefined,
+        channels: channels.length ? channels : undefined,
+        key_messages,
+        call_to_action: call_to_action || undefined,
+      };
+    }
+
+    function updatePreview() {
+      const payload = buildPayload();
+      requestPreview.textContent = JSON.stringify(payload, null, 2);
+    }
+
+    // Apply a preset example
+    function loadExample(key) {
+      const ex = EXAMPLES[key];
+      if (!ex) return;
+
+      campaignNameInput.value = ex.campaign_name || "";
+      productServiceInput.value = ex.product_service || "";
+      targetAudienceInput.value = ex.target_audience || "";
+      brandVoiceInput.value = ex.brand_voice || "";
+      keyMessagesInput.value = ex.key_messages || "";
+      ctaInput.value = ex.call_to_action || "";
+
+      // Set channels
+      channelCheckboxes.forEach(cb => {
+        cb.checked = ex.channels.includes(cb.value);
+      });
+
+      updatePreview();
+      statusLine.textContent = `Loaded demo: ${ex.campaign_name}`;
+    }
+
+    // Attach handlers for preset buttons
+    presetButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-example");
+        loadExample(key);
+      });
+    });
+
+    // Live payload preview
+    form.addEventListener("input", updatePreview);
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (!WEBHOOK_URL || WEBHOOK_URL.includes("your-n8n-domain")) {
+        alert("Content engine URL is not configured. Please set WEBHOOK_URL in the script.");
+        return;
+      }
+
+      const payload = buildPayload();
+
+      if (!payload.product_service || !payload.target_audience || !payload.key_messages) {
+        alert("Please fill in Product/Service, Target Audience, and Key Messages.");
+        return;
+      }
+
+      requestPreview.textContent = JSON.stringify(payload, null, 2);
+
+      submitBtn.disabled = true;
+      statusLine.innerHTML = "<strong>Generating marketing content…</strong> This may take 30–60 seconds.";
+      setStatusBadge("pending");
+      responseHighlights.style.display = "none";
+
+      overviewBox.textContent = "Generating marketing content. This may take 30–60 seconds…";
+      emailBox.textContent = "";
+      socialBox.textContent = "";
+      blogBox.textContent = "";
+      abtestsBox.textContent = "";
+
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const text = await res.text();
+        let json;
+        try {
+          json = JSON.parse(text);
+        } catch (err) {
+          responseBox.textContent = text || "(Empty response)";
+          statusLine.innerHTML = "Response received, but could not be parsed as JSON.";
+          setStatusBadge("error");
+          overviewBox.textContent = "Response received, but could not be parsed as JSON.";
+          submitBtn.disabled = false;
+          return;
+        }
+
+        responseBox.textContent = JSON.stringify(json, null, 2);
+        renderPackage(json);
+
+        if (res.ok) {
+          statusLine.innerHTML = "Marketing content generated successfully. ✅";
+        } else {
+          statusLine.innerHTML = "The content engine responded with an error status.";
+        }
+
+        const campaignId =
+          json.campaign_id || (json.data && json.data.campaign_id);
+
+        if (campaignId) {
+          responseHighlights.style.display = "flex";
+          pillCampaignId.textContent = `Campaign ID: ${campaignId}`;
+        } else {
+          responseHighlights.style.display = "none";
+        }
+      } catch (error) {
+        responseBox.textContent = String(error);
+        statusLine.innerHTML =
+          "Could not reach the content engine. Please check your connection and try again.";
+        setStatusBadge("error");
+        overviewBox.textContent =
+          "Could not reach the content engine. Please check your connection and try again.";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Initialise preview
+    updatePreview();
+  </script>
+</body>
+</html>
